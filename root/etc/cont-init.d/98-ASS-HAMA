@@ -9,10 +9,10 @@ fi
 # clone or update Absolute Series Scanner (ASS) repo
 plugindir="/config/Library/Application Support/Plex Media Server/Plug-ins"
 if [ ! -d /config/absolute ]; then
-    echo "**** Absolute Series Scanner (ASS): not found, cloning ****"
+    echo "**** Absolute Series Scanner: not found, cloning ****"
     s6-setuidgid abc git clone --depth 1 https://github.com/ZeroQI/Absolute-Series-Scanner /config/absolute
 else
-    echo "**** Absolute Series Scanner (ASS): pulling latest update ****"
+    echo "**** Absolute Series Scanner: pulling latest update ****"
     git config --global --add safe.directory '/config/absolute'
     s6-setuidgid abc git -C "/config/absolute" reset --hard
     s6-setuidgid abc git -C "/config/absolute" pull
@@ -24,11 +24,11 @@ mkdir -p "$scannerdir"
 
 # copy the scanner if missing or out of date
 if [ ! -f "$scannerdir/Absolute Series Scanner.py" ]; then
-    echo "**** Absolute Series Scanner (ASS): no scanner found. copying from repo ****"
+    echo "**** Absolute Series Scanner: no scanner found. copying from repo ****"
     cp -f "/config/absolute/Scanners/Series/Absolute Series Scanner.py" "$scannerdir/Absolute Series Scanner.py"
 else
     if [ $(date -r "$scannerdir/Absolute Series Scanner.py" +%s) -lt $(date -r "/config/absolute/Scanners/Series/Absolute Series Scanner.py" +%s) ]; then
-        echo "**** Absolute Series Scanner (ASS): scanner out of date, copying latest version ****"
+        echo "**** Absolute Series Scanner: scanner out of date, copying latest version ****"
         cp -f "/config/absolute/Scanners/Series/Absolute Series Scanner.py" "$scannerdir/Absolute Series Scanner.py"
     fi
 fi
