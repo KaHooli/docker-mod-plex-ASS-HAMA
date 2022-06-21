@@ -3,7 +3,7 @@ name: Build Image
 on: [push, pull_request, workflow_dispatch]
 
 env:
-  ENDPOINT: "kahooli/plex-ass-hama"
+  ENDPOINT: "kahooli/plex-asshama"
   BRANCH: "main"
 
 jobs:
