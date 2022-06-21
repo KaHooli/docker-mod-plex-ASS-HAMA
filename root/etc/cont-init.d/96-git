@@ -5,3 +5,5 @@ if [ -z `command -v git` ]; then
     echo "**** installing git ****"
     apt-get install --no-install-recommends -y git
 fi
+
+chown -R abc:abc "/root/.config/git"
