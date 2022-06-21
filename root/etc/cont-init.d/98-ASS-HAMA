@@ -1,0 +1,49 @@
+#!/usr/bin/with-contenv bash 
+
+# install git if needed
+if [ -z `command -v git` ]; then
+    echo "**** ASS-HAMA: installing git ****"
+    apt-get install --no-install-recommends -y git
+fi
+
+# clone or update Absolute Series Scanner (ASS) repo
+plugindir="/config/Library/Application Support/Plex Media Server/Plug-ins"
+if [ ! -d /config/absolute ]; then
+    echo "**** Absolute Series Scanner (ASS): not found, cloning ****"
+    s6-setuidgid abc git clone --depth 1 https://github.com/ZeroQI/Absolute-Series-Scanner /config/absolute
+else
+    echo "**** Absolute Series Scanner (ASS): pulling latest update ****"
+    git config --global --add safe.directory '/config/absolute'
+    s6-setuidgid abc git -C /config/absolute reset --hard
+    s6-setuidgid abc git -C /config/absolute pull
+fi
+chown -R abc:abc /config/absolute
+
+scannerdir="/config/Library/Application Support/Plex Media Server/Scanners/Series"
+mkdir -p "$scannerdir"
+
+# copy the scanner if missing or out of date
+if [ ! -f "$scannerdir/Absolute Series Scanner.py" ]; then
+    echo "**** Absolute Series Scanner (ASS): no scanner found. copying from repo ****"
+    cp -f "/config/absolute/Scanners/Series/Absolute Series Scanner.py" "$scannerdir/Absolute Series Scanner.py"
+else
+    if [ $(date -r "$scannerdir/Absolute Series Scanner.py" +%s) -lt $(date -r "/config/absolute/Scanners/Series/Absolute Series Scanner.py" +%s) ]; then
+        echo "**** Absolute Series Scanner (ASS): scanner out of date, copying latest version ****"
+        cp -f "/config/absolute/Scanners/Series/Absolute Series Scanner.py" "$scannerdir/Absolute Series Scanner.py"
+    fi
+fi
+chown -R abc:abc "$scannerdir"
+
+plugindir="/config/Library/Application Support/Plex Media Server/Plug-ins"
+
+# clone or update Hama.bundle repo
+if [ ! -d "$plugindir/Hama.bundle" ]; then
+    echo "**** HTTP Anidb Metadata Agent (HAMA): no agent found, cloning ****"
+    s6-setuidgid abc git clone --depth 1 https://github.com/ZeroQI/Hama.bundle "$plugindir/Hama.bundle"
+else
+    echo "**** HTTP Anidb Metadata Agent (HAMA): pulling latest update ****"
+    git config --global --add safe.directory '/config/Library/Application Support/Plex Media Server/Plug-ins/Hama.bundle'
+    s6-setuidgid abc git -C "$plugindir/Hama.bundle" reset --hard
+    s6-setuidgid abc git -C "$plugindir/Hama.bundle" pull
+fi
+chown -R abc:abc "$plugindir/Hama.bundle"
