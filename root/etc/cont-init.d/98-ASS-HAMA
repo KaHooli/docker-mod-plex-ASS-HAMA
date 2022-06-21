@@ -14,10 +14,10 @@ if [ ! -d /config/absolute ]; then
 else
     echo "**** Absolute Series Scanner (ASS): pulling latest update ****"
     git config --global --add safe.directory '/config/absolute'
-    s6-setuidgid abc git -C /config/absolute reset --hard
-    s6-setuidgid abc git -C /config/absolute pull
+    s6-setuidgid abc git -C "/config/absolute" reset --hard
+    s6-setuidgid abc git -C "/config/absolute" pull
 fi
-chown -R abc:abc /config/absolute
+chown -R abc:abc "/config/absolute"
 
 scannerdir="/config/Library/Application Support/Plex Media Server/Scanners/Series"
 mkdir -p "$scannerdir"
