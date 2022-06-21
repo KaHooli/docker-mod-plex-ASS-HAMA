@@ -4,12 +4,12 @@
 plugindir="/config/Library/Application Support/Plex Media Server/Plug-ins"
 if [ ! -d /config/absolute ]; then
     echo "**** Absolute Series Scanner: not found, cloning ****"
-    s6-setuidgid abc git clone --depth 1 https://github.com/ZeroQI/Absolute-Series-Scanner /config/absolute
+    git clone https://github.com/ZeroQI/Absolute-Series-Scanner /config/absolute
 else
     echo "**** Absolute Series Scanner: pulling latest update ****"
     git config --global --add safe.directory '/config/absolute'
-    s6-setuidgid abc git -C "/config/absolute" reset --hard
-    s6-setuidgid abc git -C "/config/absolute" pull
+    git -C "/config/absolute" reset --hard
+    git -C "/config/absolute" pull
 fi
 chown -R abc:abc "/config/absolute"
 

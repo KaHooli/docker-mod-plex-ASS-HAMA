@@ -4,11 +4,11 @@
 plugindir="/config/Library/Application Support/Plex Media Server/Plug-ins"
 if [ ! -d "$plugindir/Hama.bundle" ]; then
     echo "**** HTTP Anidb Metadata Agent: no agent found, cloning ****"
-    s6-setuidgid abc git clone --depth 1 https://github.com/ZeroQI/Hama.bundle "$plugindir/Hama.bundle"
+    git clone https://github.com/ZeroQI/Hama.bundle "$plugindir/Hama.bundle"
 else
     echo "**** HTTP Anidb Metadata Agent: pulling latest update ****"
     git config --global --add safe.directory '/config/Library/Application Support/Plex Media Server/Plug-ins/Hama.bundle'
-    s6-setuidgid abc git -C "$plugindir/Hama.bundle" reset --hard
-    s6-setuidgid abc git -C "$plugindir/Hama.bundle" pull
+    git -C "$plugindir/Hama.bundle" reset --hard
+    git -C "$plugindir/Hama.bundle" pull
 fi
 chown -R abc:abc "$plugindir/Hama.bundle"
