@@ -1,11 +1,13 @@
 # Absolute Series Scanner (ASS) & HTTP Anidb Metadata Agent (HAMA) - Docker mod for Plex
 
-This mod adds these plugins to Plex, to be downloaded/updated during container start.
+This mod is outdated, may no longer work, and I recommend to use the one released by [LinuxServer.io here](https://github.com/linuxserver/docker-mods/tree/plex-absolute-hama).
 
-More information, see
- - [Absolute Series Scanner (ASS)](https://github.com/ZeroQI/Absolute-Series-Scanner)
- - [HTTP Anidb Metadata Agent (HAMA)](https://github.com/ZeroQI/Hama.bundle)
+~~This mod adds these plugins to Plex, to be downloaded/updated during container start.~~
 
-In plex docker arguments, set an environment variable `DOCKER_MODS=ghcr.io/kahooli/plex-ass-hama`
+~~More information, see~~
+ ~~- [Absolute Series Scanner (ASS)](https://github.com/ZeroQI/Absolute-Series-Scanner)~~
+ ~~- [HTTP Anidb Metadata Agent (HAMA)](https://github.com/ZeroQI/Hama.bundle)~~
 
-If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=ghcr.io/kahooli/plex-ass-hama|linuxserver/mods:plex-mod2`
+~~In plex docker arguments, set an environment variable `DOCKER_MODS=ghcr.io/kahooli/plex-ass-hama`~~
+
+~~If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=ghcr.io/kahooli/plex-ass-hama|linuxserver/mods:plex-mod2`~~
